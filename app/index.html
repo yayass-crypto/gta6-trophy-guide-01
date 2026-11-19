@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Leonida Legends — GTA VI Trophy Guide &amp; Tracker</title>
+<meta name="description" content="Offline guide and tracker for all 55 official Grand Theft Auto VI trophies on PlayStation 5: every guide in its own words, a platinum roadmap, a missable warning, and a working checklist.">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="site-header" id="top">
+  <div class="brand-row">
+    <span class="brand-mark" aria-hidden="true">◆</span>
+    <div class="brand-text">
+      <h1>Leonida Legends</h1>
+      <p class="tagline">GTA VI Trophy Guide &amp; Tracker — all 55 official PlayStation 5 trophies, offline, no online trophies</p>
+    </div>
+    <div class="progress-block" id="progressBlock">
+      <div class="progress-line"><span id="progressCount">0 / 55 earned</span><span id="progressPercent">0%</span></div>
+      <div class="progress-track"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+      <div class="progress-grades" id="progressGrades">Platinum 0/1 · Gold 0/2 · Silver 0/6 · Bronze 0/46</div>
+    </div>
+  </div>
+  <nav class="view-tabs" id="viewTabs">
+    <button type="button" class="view-tab active" id="tabChecklist" data-view="checklist">Checklist</button>
+    <button type="button" class="view-tab" id="tabRoadmap" data-view="roadmap">Platinum roadmap</button>
+    <span class="view-note">Difficulty 4/10 · about 200 hours · 1 playthrough · no mission replay · no New Game+</span>
+  </nav>
+</header>
+
+<main>
+  <section class="stats-row" id="statsRow" aria-label="Trophy totals"></section>
+
+  <section id="checklistView">
+    <div class="missable-strip" id="missableStrip">
+      <strong>⚠ Only 1 missable trophy:</strong>
+      <span><b>Positive Mental Attitude</b> — meditate at all 18 spots; in Chapter 1 after “Down to Earth”, follow Lucia to Jason’s balcony and accept it.</span>
+    </div>
+
+    <div class="toolbar" id="toolbar">
+      <div class="chip-row" id="kindChips" role="group" aria-label="Filter by kind"></div>
+      <div class="control-row">
+        <label class="control">Grade
+          <select id="gradeSelect">
+            <option value="all">All grades</option>
+            <option value="platinum">Platinum</option>
+            <option value="gold">Gold</option>
+            <option value="silver">Silver</option>
+            <option value="bronze">Bronze</option>
+          </select>
+        </label>
+        <label class="control">Show
+          <select id="earnedSelect">
+            <option value="all">All trophies</option>
+            <option value="earned">Earned only</option>
+            <option value="unearned">Not earned yet</option>
+          </select>
+        </label>
+        <label class="control search-control">Search
+          <input type="search" id="searchInput" placeholder="Name, mission, place…" autocomplete="off">
+        </label>
+        <label class="control spoiler-control">
+          <input type="checkbox" id="spoilerToggle" checked>
+          <span>Hide story spoilers</span>
+        </label>
+        <span class="action-group">
+          <button type="button" id="exportBtn">Export progress (JSON)</button>
+          <label class="import-label" for="importFile">Import progress</label>
+          <input type="file" id="importFile" accept="application/json,.json" hidden>
+          <button type="button" id="resetBtn">Reset progress</button>
+          <span class="save-note" id="saveNote">Progress saves on this device automatically.</span>
+        </span>
+      </div>
+    </div>
+
+    <p class="list-count" id="listCount"></p>
+    <ol class="trophy-list" id="trophyList"></ol>
+    <p class="empty-note" id="emptyNote" hidden></p>
+  </section>
+
+  <section id="roadmapView" hidden>
+    <div class="roadmap-intro">
+      <h2>The road to the platinum — about 200 hours</h2>
+      <p>Difficulty <strong>4/10</strong>. One playthrough, 55 offline trophies, 0 online. Cheats disable trophies and saving, so play clean. There is no mission replay and no New Game+, which is why the save advice below matters.</p>
+    </div>
+    <div class="stage-grid" id="stageGrid"></div>
+    <div class="advice-grid">
+      <article class="advice-card warning-card" id="missableCard">
+        <h3>⚠ The one missable trophy</h3>
+        <p><strong>Positive Mental Attitude</strong> — meditate at every spot across Leonida (18 spots, 10 locations). Meditating with both characters at a spot counts double, and the final meditation needs both characters together (possible after Chapter 2, “Coffee Break”).</p>
+        <p><strong>Chapter 1, do not skip:</strong> after the mission “Down to Earth”, Lucia stands in the kitchen in the morning at Jason’s house — follow her to the balcony and accept the meditation when prompted. It is unclear whether that spot can be revisited later. Track it under Progress → Collections → Exploration → Meditations. For 100% completion only 15 of 18 spots are needed; this trophy wants all 18.</p>
+      </article>
+      <article class="advice-card" id="saveCard">
+        <h3>Save advice — 15 manual slots + 1 autosave</h3>
+        <p>Keep a manual save at the <strong>start and end of each chapter</strong>, and one more right before the final mission, “Starting From Zero”. With no mission replay and no New Game+, a pre-finale save is your only way back into the late story. Rotate the slots so an old chapter save is never your only copy.</p>
+        <p>After the story, open Progress → Stats → 100% Completion and work the Stage 2 checklist from there.</p>
+      </article>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <p>Official trophy names, descriptions and grades as listed by Exophase / PSNProfiles (the official 55, 2026-11-18). Rockstar, Sony and Microsoft have not published the list themselves. Every guide above is written in the guide’s own words; each one cites its source beside it. Five trophies are still unconfirmed by the guides and say so honestly instead of guessing.</p>
+  <p>Works fully offline — this page fetches only its own trophy data file and stores your checklist on this device. No account, no network, no Rockstar artwork.</p>
+</footer>
+
+<script type="module" src="app.js"></script>
+</body>
+</html>
