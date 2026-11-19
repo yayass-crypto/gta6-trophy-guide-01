@@ -24,7 +24,14 @@
   <nav class="view-tabs" id="viewTabs">
     <button type="button" class="view-tab active" id="tabChecklist" data-view="checklist">Checklist</button>
     <button type="button" class="view-tab" id="tabRoadmap" data-view="roadmap">Platinum roadmap</button>
-    <span class="view-note">Difficulty 4/10 · about 200 hours · 1 playthrough · no mission replay · no New Game+</span>
+    <span class="view-note">Difficulty 4/10 · about 200 hours · 1 playthrough</span>
+    <span class="action-group" aria-label="Save and restore progress">
+      <button type="button" id="exportBtn">Export progress (JSON)</button>
+      <label class="import-label" for="importFile">Import progress</label>
+      <input type="file" id="importFile" accept="application/json,.json" hidden>
+      <button type="button" id="resetBtn">Reset progress</button>
+      <span class="save-note" id="saveNote" aria-live="polite">Progress saves on this device automatically.</span>
+    </span>
   </nav>
 </header>
 
@@ -63,13 +70,6 @@
           <input type="checkbox" id="spoilerToggle" checked>
           <span>Hide story spoilers</span>
         </label>
-        <span class="action-group">
-          <button type="button" id="exportBtn">Export progress (JSON)</button>
-          <label class="import-label" for="importFile">Import progress</label>
-          <input type="file" id="importFile" accept="application/json,.json" hidden>
-          <button type="button" id="resetBtn">Reset progress</button>
-          <span class="save-note" id="saveNote">Progress saves on this device automatically.</span>
-        </span>
       </div>
     </div>
 

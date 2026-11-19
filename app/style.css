@@ -22,6 +22,14 @@
 
 * { box-sizing: border-box; }
 
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+a:focus-visible {
+  outline: 2px solid var(--teal);
+  outline-offset: 2px;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
@@ -34,7 +42,7 @@ body {
   position: sticky;
   top: 0;
   z-index: 20;
-  background: rgba(21, 10, 46, 0.97);
+  background: rgba(21, 10, 46, 1);
   border-bottom: 2px solid var(--teal-dark);
   padding: 9px 22px 7px;
 }
@@ -135,6 +143,40 @@ body {
   font-size: 13px;
   color: var(--ink-muted);
   margin-left: 6px;
+}
+
+/* Export / Import / Reset live in the sticky header, next to the view
+   tabs, so the save controls are visible on every screen — checklist,
+   roadmap, spoiler and missable alike — instead of hiding at the bottom
+   of the toolbar. */
+.action-group {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-left: auto;
+  padding-bottom: 2px;
+}
+
+.action-group button,
+.import-label {
+  font: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  border: 1px solid var(--night-line);
+  background: var(--night-panel-soft);
+  color: var(--ink);
+  padding: 6px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.action-group button:hover,
+.import-label:hover { border-color: var(--teal); }
+
+.save-note {
+  font-size: 12px;
+  color: var(--ink-muted);
 }
 
 main {
@@ -255,35 +297,6 @@ main {
 }
 
 .spoiler-control input { width: 18px; height: 18px; accent-color: var(--teal); }
-
-.action-group {
-  display: flex;
-  gap: 8px;
-  align-items: center;
-  flex-wrap: wrap;
-  padding-bottom: 2px;
-}
-
-.action-group button,
-.import-label {
-  font: inherit;
-  font-size: 13px;
-  font-weight: 700;
-  border: 1px solid var(--night-line);
-  background: var(--night-panel-soft);
-  color: var(--ink);
-  padding: 6px 12px;
-  border-radius: 8px;
-  cursor: pointer;
-}
-
-.action-group button:hover,
-.import-label:hover { border-color: var(--teal); }
-
-.save-note {
-  font-size: 12px;
-  color: var(--ink-muted);
-}
 
 .list-count {
   font-size: 13.5px;
@@ -532,13 +545,13 @@ main {
   color: var(--ink-muted);
 }
 
-/* The cover staging keeps the first screen to the checklist itself: the
-   stats strip, the missable strip, the export buttons and the list count
-   stay one click away on the roadmap tab, so the cover shows the progress
-   bar, the filters and an open guide with its sources. */
+/* Staged screenshots keep the first screen to the content itself: the
+   stats strip, the missable strip and the list count stay one click away
+   on the roadmap tab, so the cover shows the progress bar, the filters and
+   an open guide with its sources. The header action group is never hidden
+   — the export / import / reset controls must be visible in the shots. */
 .shot-cover #statsRow,
 .shot-cover #missableStrip,
-.shot-cover .action-group,
 .shot-cover #listCount {
   display: none;
 }
@@ -547,8 +560,16 @@ main {
    guide and its sources fit on one screen with the Missable filter on. */
 .shot-missable #statsRow,
 .shot-missable #missableStrip,
-.shot-missable .action-group,
 .shot-missable #listCount {
+  display: none;
+}
+
+/* In staged shots the small save note under the header buttons is dropped
+   so the header stays one compact row; the buttons themselves stay. */
+.shot-cover #saveNote,
+.shot-roadmap #saveNote,
+.shot-spoiler #saveNote,
+.shot-missable #saveNote {
   display: none;
 }
 

@@ -1,6 +1,8 @@
-// Leonida Legends — offline GTA VI trophy guide + tracker.
-// Plain static app: it fetches only its own data/trophies.json, keeps the
-// checklist in localStorage, and never reaches for the network at runtime.
+// Leonida Legends — the offline GTA VI trophy guide and tracker.
+//
+// A plain static app: it fetches only its own data/trophies.json, keeps the
+// checklist in localStorage, and never reaches for the network while it
+// runs. No framework, no fonts from outside, no images from outside.
 
 const DATA_URL = 'data/trophies.json';
 const SAVE_KEY = 'leonida-legends-v1';
@@ -14,6 +16,8 @@ const KIND_LABELS = {
   online: 'Online',
 };
 
+// The three platinum-roadmap stages, with the hours and the trophies each
+// stage is really about.
 const STAGE_PLANS = {
   1: {
     title: 'Stage 1 — Story',
@@ -32,24 +36,34 @@ const STAGE_PLANS = {
   },
 };
 
+// One shared demo set of earned trophies, so every staged screenshot shows
+// the same playthrough at the same 14/55 — the cover, the spoiler view,
+// the missable view and the roadmap all agree with each other.
+const DEMO_EARNED = [2, 3, 4, 5, 8, 9, 15, 19, 21, 28, 35, 42, 46, 53];
+
 // Demo states used only for the ?shot= screenshots. They live in memory:
 // a staged view never reads or writes localStorage.
 const SHOT_STATES = {
   cover: {
-    earned: [2, 3, 4, 5, 8, 9, 15, 19, 21, 28, 35, 42, 46, 53],
+    earned: DEMO_EARNED,
     openGuideId: 1,
     spoilerOn: true,
   },
   spoiler: {
-    earned: [8],
+    earned: DEMO_EARNED,
     openGuideId: 8,
     spoilerOn: true,
   },
   missable: {
-    earned: [],
+    earned: DEMO_EARNED,
     openGuideId: 28,
     spoilerOn: true,
     kind: 'missable',
+  },
+  roadmap: {
+    earned: DEMO_EARNED,
+    spoilerOn: true,
+    view: 'roadmap',
   },
 };
 
@@ -112,19 +126,15 @@ function saveProgress() {
 function applyShotStaging() {
   const params = new URLSearchParams(window.location.search);
   const shot = params.get('shot');
-  if (shot === 'roadmap') {
-    state.staged = true;
-    state.view = 'roadmap';
-    return;
-  }
   const demo = SHOT_STATES[shot];
   if (!demo) return;
   state.staged = true;
   document.body.classList.add('shot-' + shot);
   state.earned = new Set(demo.earned);
-  state.openGuideId = demo.openGuideId;
   state.spoilerOn = demo.spoilerOn;
+  if (demo.openGuideId) state.openGuideId = demo.openGuideId;
   if (demo.kind) state.kind = demo.kind;
+  if (demo.view) state.view = demo.view;
 }
 
 function renderGradeOptions() {
@@ -403,6 +413,7 @@ function exportProgressFile() {
     guide: 'Leonida Legends — GTA VI Trophy Guide & Tracker',
     exportedAt: new Date().toISOString(),
     earned: [...state.earned].sort((a, b) => a - b),
+    spoilerOn: state.spoilerOn,
     total: TOTAL_TROPHIES,
   };
   const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
@@ -431,6 +442,10 @@ function importProgressFile(file) {
         if (valid.has(n)) next.add(n);
       }
       state.earned = next;
+      if (typeof parsed.spoilerOn === 'boolean') {
+        state.spoilerOn = parsed.spoilerOn;
+        $('spoilerToggle').checked = state.spoilerOn;
+      }
       saveProgress();
       updateProgressBar();
       renderTrophyList();
